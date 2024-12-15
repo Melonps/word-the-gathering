@@ -20,6 +20,9 @@ dependencies:
   electron-updater:
     specifier: ^6.1.7
     version: 6.3.9
+  guesslanguage:
+    specifier: ^0.2.0
+    version: 0.2.0
   jotai:
     specifier: ^2.10.3
     version: 2.10.3(@types/react@18.3.16)(react@18.3.1)
@@ -4753,6 +4756,11 @@ packages:
   /graphemer@1.4.0:
     resolution: {integrity: sha512-EtKwoO6kxCL9WO5xipiHTZlSzBm7WLT627TqC/uVRd0HKmq8NXyebnNYxDoBi7wt8eTWrUrKXCOVaFq9x1kgag==}
     dev: true
+
+  /guesslanguage@0.2.0:
+    resolution: {integrity: sha512-oNr6EGO3Z1mEYL+ZaYE2O0KyuuoSaN5quvL7KbsasrvGjk3FWHpqXtcNa8M4TuXvV8vBj6GJ1z8pmUhSnQWSFQ==}
+    engines: {node: '>= 0.4'}
+    dev: false
 
   /has-bigints@1.0.2:
     resolution: {integrity: sha512-tSvCKtBr9lkF0Ex0aQiP9N+OpV4zi2r/Nee5VkRDbaqv35RLYMzbwQfFSZZH0kR+Rd6302UJZ2p/bJCEoR3VoQ==}
