@@ -1,25 +1,35 @@
 import { Container, Box, Text, Button } from '@yamada-ui/react'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import { GatheredWordsTable } from './components/GatherdWordTable'
 import { useGatherWords } from './hooks/useGather'
+import { JapaneseIcon } from './components/customIcon'
 
 function App(): JSX.Element {
   const [clipboardText, setClipboardText] = useState('test')
-  const { gatheredWords, addWordString, removeAllGatheredWords, isExistWord } = useGatherWords()
+  const { addWordString, removeAllGatheredWords } = useGatherWords()
 
-  useEffect(() => {
-    window.electron.onClipboardText((_event, text) => {
+  const handleClipboardText = useCallback(
+    (text: string) => {
       if (clipboardText !== text) {
-        console.log('clipboardText', text)
-        console.log('text', text)
-        console.log(clipboardText !== text)
         setClipboardText(text)
         addWordString(text)
       }
-    })
-  }, [])
+    },
+    [clipboardText, addWordString]
+  )
 
-  console.log()
+  useEffect(() => {
+    const clipboardListener = (_event: any, text: string): void => {
+      handleClipboardText(text)
+    }
+
+    window.electron.onClipboardText(clipboardListener)
+
+    return (): void => {
+      window.electron.removeListener('clipboard-text', clipboardListener)
+    }
+  }, [handleClipboardText])
+
   return (
     <Container>
       <Button
@@ -29,11 +39,10 @@ function App(): JSX.Element {
       >
         すべて削除
       </Button>
+      <JapaneseIcon size={4} />
       <Box border="1px solid" rounded="md" borderColor="border">
         <Text>クリップボードの内容</Text>
-        <Text>吃饱了然后睡着了刚刚</Text>
         <Text>{clipboardText}</Text>
-        <Text>言語判定</Text>
         <GatheredWordsTable />
       </Box>
     </Container>

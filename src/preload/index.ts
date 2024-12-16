@@ -10,6 +10,9 @@ const api = {}
 if (process.contextIsolated) {
   try {
     contextBridge.exposeInMainWorld('electron', {
+      removeListener: (channel: string, listener: (...args: any[]) => void) => {
+        ipcRenderer.removeListener(channel, listener)
+      },
       onClipboardText: (callback) => ipcRenderer.on('get-clipboard-text', callback)
     })
     contextBridge.exposeInMainWorld('api', api)

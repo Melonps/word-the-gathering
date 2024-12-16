@@ -4,7 +4,7 @@ import { Box, Text, useDisclosure, VStack, Container } from '@yamada-ui/react'
 import { PagingTable } from '@yamada-ui/table'
 import { useGatherWords } from '@renderer/hooks/useGather'
 
-export const GatheredWordsTable = () => {
+export const GatheredWordsTable = (): JSX.Element => {
   const { gatheredWords } = useGatherWords()
 
   return (

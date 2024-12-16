@@ -1,4 +1,5 @@
 import { Tag } from '@yamada-ui/react'
+import { LanguageDisplay } from '@renderer/components/language'
 
 export const GatheredWordsColumns = [
   {
@@ -7,7 +8,10 @@ export const GatheredWordsColumns = [
   },
   {
     Header: 'Language',
-    accessorKey: 'language'
+    accessorKey: 'language',
+    cell: (info: any) => {
+      return <LanguageDisplay language={info.row.original.language} />
+    }
   },
   {
     Header: 'status',
