@@ -2,34 +2,18 @@ import { GatheredWord } from '@renderer/lib/type'
 import { GatheredWordsColumns } from '@renderer/lib/tableSetting'
 import { Box, Text, useDisclosure, VStack, Container } from '@yamada-ui/react'
 import { PagingTable } from '@yamada-ui/table'
-import { Tag } from '@yamada-ui/react'
-
-interface tableProps {
-  WordInfo: GatheredWord
-  status: string
-}
-
-const sampleData = [
-  {
-    word: 'sample',
-    language: 'English',
-    status: 'active'
-  },
-  {
-    word: 'サンプル',
-    language: 'Japanese',
-    status: 'active'
-  }
-]
+import { useGatherWords } from '@renderer/hooks/useGather'
 
 export const GatheredWordsTable = () => {
+  const { gatheredWords } = useGatherWords()
+
   return (
     <Container>
       <VStack gap={4}>
         <PagingTable
           layout={'initial'}
           columns={GatheredWordsColumns}
-          data={sampleData}
+          data={gatheredWords}
           defaultPageSize={5}
           rowsClickSelect
           highlightOnHover

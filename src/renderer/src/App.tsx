@@ -1,24 +1,34 @@
-import { Container, Box, Text } from '@yamada-ui/react'
+import { Container, Box, Text, Button } from '@yamada-ui/react'
 import { useEffect, useState } from 'react'
 import { GatheredWordsTable } from './components/GatherdWordTable'
-import guesslanguage from 'guesslanguage'
+import { useGatherWords } from './hooks/useGather'
 
 function App(): JSX.Element {
   const [clipboardText, setClipboardText] = useState('test')
+  const { gatheredWords, addWordString, removeAllGatheredWords, isExistWord } = useGatherWords()
 
   useEffect(() => {
     window.electron.onClipboardText((_event, text) => {
-      setClipboardText(text)
+      if (clipboardText !== text) {
+        console.log('clipboardText', text)
+        console.log('text', text)
+        console.log(clipboardText !== text)
+        setClipboardText(text)
+        addWordString(text)
+      }
     })
   }, [])
 
-  console.log(
-    guesslanguage.guessLanguage.name('吃饱了然后睡着了刚刚', (callback) => {
-      console.log(callback)
-    })
-  )
+  console.log()
   return (
     <Container>
+      <Button
+        onClick={() => {
+          removeAllGatheredWords()
+        }}
+      >
+        すべて削除
+      </Button>
       <Box border="1px solid" rounded="md" borderColor="border">
         <Text>クリップボードの内容</Text>
         <Text>吃饱了然后睡着了刚刚</Text>
